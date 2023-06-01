@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.homeshare.homeshareapi.repository.HomeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 public class HomeServiceImpl implements HomeService{
 
     private final HomeRepository homeRepository;
+    private List<Home> homes;
 
     @Override
     public Home create(Home home) {
@@ -45,5 +47,20 @@ public class HomeServiceImpl implements HomeService{
     public String delete(UUID id) {
         homeRepository.deleteById(id);
         return "Home Delete !";
+    }
+
+    @Override
+    public List<Home> searchByCriteria(String criteria) {
+        List<Home> matchingHomes = new ArrayList<>();
+
+        for(Home home : homes){
+            if(home.getTitle().equalsIgnoreCase(criteria)
+                    || String.valueOf(home.getEndRent()).equalsIgnoreCase(criteria)
+                    || String.valueOf(home.getStartRent()).equalsIgnoreCase(criteria)
+                    || home.getTiming().equalsIgnoreCase(criteria)){
+                matchingHomes.add(home);
+            }
+        }
+        return matchingHomes;
     }
 }

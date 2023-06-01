@@ -3,6 +3,7 @@ package com.homeshare.homeshareapi.controller;
 import com.homeshare.homeshareapi.model.Home;
 import com.homeshare.homeshareapi.service.HomeService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,4 +36,10 @@ public class HomeController {
     public String delete(@PathVariable UUID id) {
         return homeService.delete(id);
     }
+
+    @GetMapping("/search")
+    public List<Home> searchByTitle(@RequestParam String criteria){
+        return homeService.searchByCriteria(criteria);
+    }
+
 }
