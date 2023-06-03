@@ -16,4 +16,6 @@ public interface UserService {
     String delete(UUID id);
 
     User getUserbyId(UUID id);
+
+    User getUserbyUsername(String username);
 }

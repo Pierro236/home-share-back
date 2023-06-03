@@ -7,6 +7,7 @@ import com.homeshare.homeshareapi.repository.HomeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -52,15 +53,27 @@ public class HomeServiceImpl implements HomeService{
     @Override
     public List<Home> searchByCriteria(String criteria) {
         List<Home> matchingHomes = new ArrayList<>();
+        List<Home> allHomes = homeRepository.findAll();
 
-        for(Home home : homes){
-            if(home.getTitle().equalsIgnoreCase(criteria)
-                    || String.valueOf(home.getEndRent()).equalsIgnoreCase(criteria)
-                    || String.valueOf(home.getStartRent()).equalsIgnoreCase(criteria)
-                    || home.getTiming().equalsIgnoreCase(criteria)){
+        for(Home home : allHomes){
+            if(matchesCriteria(home,criteria)) {
                 matchingHomes.add(home);
             }
         }
         return matchingHomes;
+    }
+
+    private boolean matchesCriteria(Home home, String criteria) {
+        String title = home.getTitle();
+        String endRent = String.valueOf(home.getEndRent());
+        String startRent = String.valueOf(home.getStartRent());
+        String timing = home.getTiming();
+        String description = home.getDescription();
+
+        return (title != null && title.toLowerCase().contains(criteria.toLowerCase()))
+                || (endRent != null && endRent.contains(criteria))
+                || (startRent != null && startRent.contains(criteria))
+                || (timing != null && timing.toLowerCase().contains(criteria.toLowerCase()))
+                || (description != null && description.toLowerCase().contains(criteria.toLowerCase()));
     }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -38,5 +39,19 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable UUID id) {
         return userService.delete(id);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password) {
+        User user = userService.getUserbyUsername(username);
+        if (user == null) {
+            return "User not found !";
+        }
+
+        if (!Objects.equals(user.getPassword(),password)) {
+            return "Invalid password!";
+        }
+
+        return "Login";
     }
 }
