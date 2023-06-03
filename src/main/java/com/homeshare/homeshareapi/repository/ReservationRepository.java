@@ -1,10 +1,9 @@
 package com.homeshare.homeshareapi.repository;
 
-import com.homeshare.homeshareapi.model.Rating;
+import com.homeshare.homeshareapi.model.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface RatingRepository extends JpaRepository<Rating, UUID> {
-
+public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
 }

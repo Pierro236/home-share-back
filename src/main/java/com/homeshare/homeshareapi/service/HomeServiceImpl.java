@@ -70,10 +70,11 @@ public class HomeServiceImpl implements HomeService{
         String timing = home.getTiming();
         String description = home.getDescription();
 
-        return (title != null && title.toLowerCase().contains(criteria.toLowerCase()))
+        return ((title != null && title.toLowerCase().contains(criteria.toLowerCase()))
                 || (endRent != null && endRent.contains(criteria))
                 || (startRent != null && startRent.contains(criteria))
                 || (timing != null && timing.toLowerCase().contains(criteria.toLowerCase()))
-                || (description != null && description.toLowerCase().contains(criteria.toLowerCase()));
+                || (description != null && description.toLowerCase().contains(criteria.toLowerCase()))
+                && home.isShared());
     }
 }
