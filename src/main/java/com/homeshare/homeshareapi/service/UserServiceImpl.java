@@ -51,7 +51,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUserbyUsername(String username) {
-        return getUserbyUsername(username);
+        return null;
+    }
+
+    @Override
+    public User getUserbyUsernameAndPassword(String username, String password) {
+        return userRepository.getUserByUsernameAndPassword(username, password);
     }
 
 }

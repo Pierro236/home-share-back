@@ -3,7 +3,7 @@ package com.homeshare.homeshareapi.controller;
 import com.homeshare.homeshareapi.model.Message;
 import com.homeshare.homeshareapi.service.MessageService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,19 +18,18 @@ public class MessageController {
 
     @PostMapping("/create")
     public Message createMessage(Authentication authentication, @RequestBody Message message) {
-        UUID userId = (UUID) authentication.getPrincipal();
+        UUID userId =  message.getSender().getUserid();
         return messageService.create(userId, message);
     }
 
-    @GetMapping("/all")
-    public List<Message> getAllMessages(Authentication authentication) {
-        UUID userId = (UUID) authentication.getPrincipal();
-        return messageService.getAllMessages(userId);
+    @GetMapping("/all/{id}")
+    public List<Message> getAllMessages(@PathVariable UUID id) {
+        return messageService.getAllMessages(id);
     }
 
     @GetMapping("/{recipientId}")
-    public List<Message> getMessagesByUser(Authentication authentication, @PathVariable UUID recipientId) {
-        UUID userId = (UUID) authentication.getPrincipal();
+    public List<Message> getMessagesByUser( @PathVariable UUID recipientId) {
+        UUID userId = recipientId;
         return messageService.getMessagesByUser(userId, recipientId);
     }
 }

@@ -18,4 +18,6 @@ public interface UserService {
     User getUserbyId(UUID id);
 
     User getUserbyUsername(String username);
+
+    User getUserbyUsernameAndPassword(String username, String password);
 }
