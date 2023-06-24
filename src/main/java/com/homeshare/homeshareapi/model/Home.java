@@ -27,20 +27,20 @@ public class Home {
     @Column
     private boolean isShared;
 
-    @Column
-    private Byte[] image1;
-    @Column
-    private Byte[] image2;
-    @Column
-    private Byte[] image3;
+    @Column(length = 250)
+    private String image1;
+    @Column(length = 250)
+
+    private String image2;
+    @Column(length = 250)
+
+    private String image3;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startRent;
+    private String startRent;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endRent;
+    private String endRent;
 
     @Column(length = 350)
     private String timing;

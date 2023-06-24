@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,5 +28,7 @@ public class User {
     private String address;
     @Column(length = 250)
     private String password;
+    @Column(length = 250, columnDefinition = "varchar(250) default 'user'")
+    private String role;
 
 }
